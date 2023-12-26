@@ -1,0 +1,113 @@
+body {
+  background-color: #cc0000;
+}
+
+.title {
+  font-family: system-ui;
+  text-align: center;
+  color: #ffffff;
+}
+
+div {
+  justify-content: center;
+}
+
+/* .grid table */
+table {
+  border-radius: 8px;
+  overflow: hidden;
+  border-collapse: collapse;
+  width: 800px;
+  padding-left: 90px;
+  font-size: 13px;
+}
+
+.grid th {
+  font-family: "Inter";
+  font-weight: 700;
+}
+
+.grid tr {
+  font-family: "Inter";
+  font-weight: unset;
+  color: #ffffff;
+  transition: background-color 0.3s ease;
+  height: 35px;
+}
+
+// thead??
+.grid thead tr:first-child {
+  height: 3rem; // ~49px
+  filter: brightness(110%);
+}
+
+/* tbody?? */
+.grid tbody tr:hover {
+  filter: brightness(140%);
+}
+
+.grid tr:nth-child(even) {
+  background-color: #1d1d1d;
+}
+
+.grid tr:nth-child(odd) {
+  background-color: #212121;
+}
+
+.grid td {
+  margin: 0;
+  text-align: center;
+}
+
+.grid td a {
+  text-decoration: none;
+  color: inherit;
+  transition: font-weight 0.001s ease;
+}
+
+.grid td:first-child {
+  font-weight: 400;
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.grid td:nth-child(2),
+.grid th:nth-child(2) {
+  text-align: left;
+}
+
+.grid td:nth-child(2) {
+  font-weight: 700;
+}
+
+// .grid td a:hover {
+//   font-weight: 500;
+// }
+
+.tooltip {
+  position: relative;
+  // cursor: help;
+}
+
+/* Tooltip text */
+.tooltip::after {
+  content: attr(data-date-format); /* Show data-date-format attribute content */
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8); /* Tooltip background color */
+  color: white; /* Tooltip text color */
+  padding: 4px 8px; /* Padding around the text */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 12px; /* Font size */
+  top: -25px; /* Position above the element */
+  left: 50%; /* Centered horizontally */
+  transform: translateX(-50%);
+  opacity: 0; /* Hide initially */
+  transition: opacity 0.3s ease; /* Fade-in animation */
+}
+
+/* Show tooltip on hover */
+.tooltip:hover::after {
+  opacity: 1; /* Show the tooltip */
+  content: attr(data-tooltip-text);
+  width: 80;
+}
