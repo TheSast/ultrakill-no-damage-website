@@ -27,9 +27,7 @@
           {
             packages = with pkgs;
               [
-                cargo
-                clippy
-                rustfmt
+                taplo-lsp
                 (rust-bin.fromRustupToolchainFile ./rust-toolchain.toml) # rust-src, rust-analyzer
               ]
               ++ [
