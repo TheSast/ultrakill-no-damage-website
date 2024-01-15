@@ -12,7 +12,7 @@ pub fn App() -> impl IntoView {
         <Stylesheet id="leptos" href="/pkg/uknd.css"/>
 
         // sets the document title
-        <Title text="UKPND LB"/>
+        <Title text="UKND LB"/>
         <link rel="preconnect" href="https://fonts.googleapis.com"/>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
         <link
@@ -37,7 +37,7 @@ pub fn App() -> impl IntoView {
 #[component]
 fn HomePage() -> impl IntoView {
     view! {
-        <h1 class="title">"ULTRAKILL P-Rank NO DAMAGE Leaderboard"</h1>
+        <h1 class="title">"ULTRAKILL NO DAMAGE Leaderboards"</h1>
         <Leaderboard/>
     }
 }
