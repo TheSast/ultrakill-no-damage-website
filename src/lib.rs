@@ -1,4 +1,5 @@
 pub mod app;
+pub mod components;
 pub mod gamedata;
 use cfg_if::cfg_if;
 
