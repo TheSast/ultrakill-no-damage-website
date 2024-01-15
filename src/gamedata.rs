@@ -46,20 +46,23 @@ pub struct Run {
 
 #[allow(clippy::zero_prefixed_literal)]
 pub fn load_runs() -> Vec<Run> {
-    let mut file = match std::fs::File::open("assets/run_data.csv") {
-        Ok(file) => file,
-        Err(err) => {
-            error!("Error opening file: {}", err);
-            return Vec::new();
-        }
-    };
-    let mut csv_data = String::new();
-    if let Err(err) = std::io::Read::read_to_string(&mut file, &mut csv_data) {
-        error!("Error reading file: {}", err);
-        return Vec::new();
-    }
+    // let mut file = match std::fs::File::open("assets/run_data.csv") {
+    //     Ok(file) => file,
+    //     Err(err) => {
+    //         error!("Error opening file: {err}");
+    //         return Vec::new();
+    //     }
+    // };
+    // let mut csv_data = String::new();
+    // if let Err(err) = std::io::Read::read_to_string(&mut file, &mut csv_data) {
+    //     error!("Error reading file: {err}");
+    //     return Vec::new();
+    // }
+    // I have no idea how to read files at runtime
+    // HACK: embed the file in the binary
+    let csv_data = std::include_str!("../assets/run_data.csv");
     let runs = parse_csv(&csv_data).unwrap_or_else(|err| {
-        error!("Error parsing CSV: {err}\n ```csv{csv_data:?}```");
+        error!("Error parsing CSV: {err}\nCSV: {csv_data:?}");
         return Vec::new();
     });
     runs
