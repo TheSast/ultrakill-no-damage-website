@@ -1,5 +1,4 @@
-runner,igt_ms,submission_date,difficulty,patch_release_date
-TheFast,045_251,1666526800,Violent,1660651200
-TheSast,045_251,1666526400,Violent,1660651200
-Haze1520,002_743,1666526900,Standard,1660651200
-debatable,150_936,1666526200,Lenient,1660651200
+runner        , level , igt_ms  , category , submission_date , difficulty , patch_release_date , proof
+D_Savez       , 6-2   , 055_140 , P        , 1661126400      , Violent    , 1660608000         , https://youtu.be/jpxxrGMK1Hs
+TheSast       , 6-2   , 028_929 , P        , 1662025500      , Violent    , 1660608000         , https://www.speedrun.com/ultrakill/runs/y4x8wx3z
+FightLikeHell , 6-2   , 062_339 , Any      , 1660608000      , Violent    , 1660608000         , https://youtu.be/uL6nIosxSTQ

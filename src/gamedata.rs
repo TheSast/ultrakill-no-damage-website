@@ -63,22 +63,6 @@ pub fn load_runs() -> Vec<Run> {
         return Vec::new();
     });
     runs
-    // vec![
-    //     Run {
-    //         runner: String::from("TheSast"),
-    //         igt_ms: 045_377,
-    //         submission_date: 1666526400,
-    //         difficulty: Difficulty::Violent,
-    //         patch_release_date: 1660651200,
-    //     },
-    //     Run {
-    //         runner: String::from("Westaxle"),
-    //         igt_ms: 002_377,
-    //         submission_date: 1666526900,
-    //         difficulty: Difficulty::Standard,
-    //         patch_release_date: 1660651200,
-    //     },
-    // ]
 }
 
 fn parse_csv(csv_data: &str) -> Result<Vec<Run>, Box<dyn Error>> {
