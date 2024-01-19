@@ -1,17 +1,20 @@
 use csv::ReaderBuilder;
 use leptos::logging::error;
-use std::error::Error;
+use std::{
+    error::Error,
+    fmt::{self, Display},
+};
 
-#[derive(Debug, Clone, PartialEq)]
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Category {
     P,
     Any,
     NoMo,
 }
 
-impl std::fmt::Display for Category {
-    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        write!(f, "{:?}", self)
+impl Display for Category {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{self:?}")
     }
 }
 
@@ -25,9 +28,9 @@ pub enum Difficulty {
     UltrakillMustDie,
 }
 
-impl std::fmt::Display for Difficulty {
-    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
-        write!(f, "{:?}", self)
+impl Display for Difficulty {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "{self:?}")
     }
 }
 
@@ -44,7 +47,6 @@ pub struct Run {
     pub proof: String,
 }
 
-#[allow(clippy::zero_prefixed_literal)]
 pub fn load_runs() -> Vec<Run> {
     // let mut file = match std::fs::File::open("assets/run_data.csv") {
     //     Ok(file) => file,
@@ -61,11 +63,10 @@ pub fn load_runs() -> Vec<Run> {
     // I have no idea how to read files at runtime
     // HACK: embed the file in the binary
     let csv_data = std::include_str!("../assets/run_data.csv");
-    let runs = parse_csv(&csv_data).unwrap_or_else(|err| {
+    parse_csv(csv_data).unwrap_or_else(|err| {
         error!("Error parsing CSV: {err}\nCSV: {csv_data:?}");
-        return Vec::new();
-    });
-    runs
+        Vec::new()
+    })
 }
 
 fn parse_csv(csv_data: &str) -> Result<Vec<Run>, Box<dyn Error>> {
@@ -76,15 +77,15 @@ fn parse_csv(csv_data: &str) -> Result<Vec<Run>, Box<dyn Error>> {
     for result in reader.records() {
         let record = result?;
 
-        let runner = record.get(0).ok_or("Missing runner")?.trim().to_string();
-        let level = record.get(1).ok_or("Missing level")?.trim().to_string();
+        let runner = record.get(0).ok_or("Missing runner")?.trim().to_owned();
+        let level = record.get(1).ok_or("Missing level")?.trim().to_owned();
         let igt_ms = record
             .get(2)
             .ok_or("Missing igt_ms")?
             .trim()
-            .replace("_", "")
+            .replace('_', "")
             .parse::<u32>()
-            .map_err(|_| "Invalid digit found in igt_ms")?;
+            .map_err(|_e| "Invalid digit found in igt_ms")?;
         let category = match record.get(3).ok_or("Missing category")?.trim() {
             "P" => Category::P,
             "Any" => Category::Any,
@@ -96,7 +97,7 @@ fn parse_csv(csv_data: &str) -> Result<Vec<Run>, Box<dyn Error>> {
             .ok_or("Missing submission_date")?
             .trim()
             .parse::<u64>()
-            .map_err(|_| "Invalid digit found in submission_date")?;
+            .map_err(|_e| "Invalid digit found in submission_date")?;
         let difficulty = match record.get(5).ok_or("Missing difficulty")?.trim() {
             "Passive" => Difficulty::Passive,
             "Lenient" => Difficulty::Lenient,
@@ -111,8 +112,8 @@ fn parse_csv(csv_data: &str) -> Result<Vec<Run>, Box<dyn Error>> {
             .ok_or("Missing patch_release_date")?
             .trim()
             .parse::<u64>()
-            .map_err(|_| "Invalid digit found in patch_release_date")?;
-        let proof = record.get(7).ok_or("Missing proof")?.trim().to_string();
+            .map_err(|_e| "Invalid digit found in patch_release_date")?;
+        let proof = record.get(7).ok_or("Missing proof")?.trim().to_owned();
 
         let run = Run {
             runner,

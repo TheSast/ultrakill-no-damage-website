@@ -1,8 +1,9 @@
 use crate::gamedata::{self, Category, Run};
-use leptos::leptos_dom::tracing;
-use leptos::{component, create_signal, view, IntoView, SignalGet, SignalUpdate};
+use leptos::{
+    component, create_signal, leptos_dom::tracing, view, IntoAttribute, IntoView, SignalGet,
+    SignalUpdate,
+};
 
-#[allow(non_snake_case)]
 #[component]
 pub fn Leaderboard() -> impl IntoView {
     let runs = {
@@ -52,7 +53,11 @@ pub fn Leaderboard() -> impl IntoView {
     }
 }
 
-fn runs_into_view(runs: &Vec<Run>, category: &Category) -> impl IntoView {
+#[expect(
+    clippy::pattern_type_mismatch,
+    reason = "same-name variable deconstruction to references is not a type mismatch"
+)]
+fn runs_into_view(runs: &[Run], category: &Category) -> impl IntoView {
     runs.iter()
         .filter(|r| {
             r.category == *category || *category == Category::Any && r.category == Category::P
@@ -61,13 +66,14 @@ fn runs_into_view(runs: &Vec<Run>, category: &Category) -> impl IntoView {
         .map(|(idx, run)| {
             let Run {
                 runner,
-                level: _,
+                // level: _,
                 igt_ms,
-                category: _,
+                // category: _,
                 submission_date,
                 difficulty,
                 patch_release_date,
                 proof,
+                ..
             } = run;
             let igt_ms = format!(
                 "{:02}:{:02}:{:03}",
@@ -83,7 +89,7 @@ fn runs_into_view(runs: &Vec<Run>, category: &Category) -> impl IntoView {
                 //     - Duration::from_secs(*submission_date))
                 // .as_secs();
                 // std::time is not implemented for wasm
-                let seconds = submission_date.clone();
+                let seconds = *submission_date;
 
                 let minutes = seconds / 60;
                 let hours = minutes / 60;
@@ -110,17 +116,18 @@ fn runs_into_view(runs: &Vec<Run>, category: &Category) -> impl IntoView {
             };
             let difficulty = difficulty.to_string();
             let patch_release_date = patch_release_date.to_string();
-            // #[expect(unused_variables)]
-            #[allow(unused_variables)]
-            let proof = proof.to_string(); // thinks it's unused but it is!
+            // INFO: need to call `into_attribute` manually to silence `unused_import` warning
+            let proof = proof.to_string().into_attribute();
+            // let proof = proof.to_string();
+            let runner_link = format!("https://www.speedrun.com/users/{runner}");
             view! {
                 <tr>
                     <td>{idx + 1}</td>
                     <td>
-                        <a href="https://www.speedrun.com/users/{runner}">{runner}</a>
+                        <a href=runner_link>{runner}</a>
                     </td>
                     <td>
-                        <a href="{proof}">{igt_ms}</a>
+                        <a href=proof>{igt_ms}</a>
                     </td>
                     <td>{submission_date}</td>
                     <td>{difficulty}</td>

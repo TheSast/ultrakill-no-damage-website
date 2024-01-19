@@ -1,9 +1,14 @@
-use crate::components::Leaderboard::Leaderboard;
-use leptos::*;
-use leptos_meta::*;
-use leptos_router::*;
+#![expect(
+    clippy::empty_structs_with_brackets,
+    clippy::infinite_loop,
+    clippy::module_name_repetitions,
+    reason = "Leptos components do not appropriately allow or expect lints"
+)]
+use crate::components::Leaderboard;
+use leptos::{component, tracing, view, IntoView};
+use leptos_meta::{provide_meta_context, Stylesheet, Title};
+use leptos_router::{Route, Router, Routes};
 
-#[allow(non_snake_case)]
 #[component]
 pub fn App() -> impl IntoView {
     // Provides context that manages stylesheets, titles, meta tags, etc.
@@ -34,7 +39,6 @@ pub fn App() -> impl IntoView {
 }
 
 /// Renders the home page of your application.
-#[allow(non_snake_case)]
 #[component]
 fn HomePage() -> impl IntoView {
     view! {
@@ -44,7 +48,6 @@ fn HomePage() -> impl IntoView {
 }
 
 /// 404 - Not Found
-#[allow(non_snake_case)]
 #[component]
 fn NotFound() -> impl IntoView {
     // set an HTTP status code 404
@@ -55,11 +58,12 @@ fn NotFound() -> impl IntoView {
     // to the server
     #[cfg(feature = "ssr")]
     {
+        use actix_web::http::StatusCode;
         // this can be done inline because it's synchronous
         // if it were async, we'd use a server function
-        let resp = expect_context::<leptos_actix::ResponseOptions>();
-        resp.set_status(actix_web::http::StatusCode::NOT_FOUND);
-    }
+        let resp = leptos::expect_context::<leptos_actix::ResponseOptions>();
+        resp.set_status(StatusCode::NOT_FOUND);
+    };
 
     view! { <h1>"Not Found"</h1> }
 }

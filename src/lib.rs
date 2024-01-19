@@ -1,3 +1,6 @@
+#![feature(lint_reasons, never_type)]
+#![warn(rustdoc::all)]
+
 pub mod app;
 pub mod components;
 pub mod gamedata;
@@ -10,8 +13,7 @@ if #[cfg(feature = "hydrate")] {
 
     #[wasm_bindgen]
     pub fn hydrate() {
-      use app::*;
-      // use leptos::*;
+      use app::App;
 
       console_error_panic_hook::set_once();
 
