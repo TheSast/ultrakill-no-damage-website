@@ -1,4 +1,5 @@
-runner        , level , igt_ms  , category , submission_date , difficulty , patch_release_date , proof
-D_Savez       , 6-2   , 055_140 , P        , 1661126400      , Violent    , 1660608000         , https://youtu.be/jpxxrGMK1Hs
-TheSast       , 6-2   , 028_929 , P        , 1662025500      , Violent    , 1660608000         , https://www.speedrun.com/ultrakill/runs/y4x8wx3z
-FightLikeHell , 6-2   , 062_339 , Any      , 1660608000      , Violent    , 1660608000         , https://youtu.be/uL6nIosxSTQ
+runner         , level , igt_ms  , category , submission_date , difficulty , patch_release_date , proof
+D_Savez        , 6-2   , 055_140 , P        , 1661126400      , Violent    , 1660608000         , https://youtu.be/jpxxrGMK1Hs
+TheSast        , 6-2   , 028_929 , P        , 1662025500      , Violent    , 1660608000         , https://www.speedrun.com/ultrakill/runs/y4x8wx3z
+FightLikeHell  , 6-2   , 062_339 , Any      , 1660608000      , Violent    , 1660608000         , https://youtu.be/uL6nIosxSTQ
+Dougal McGuire , P-2   , 291_214 , P        , 1703160000      , Violent    , 1682596800         , https://youtu.be/ZEfS2y_1_L4
