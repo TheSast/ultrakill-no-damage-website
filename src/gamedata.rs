@@ -5,7 +5,7 @@ use std::{
     fmt::{self, Display},
 };
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Category {
     P,
     Any,
@@ -18,7 +18,7 @@ impl Display for Category {
     }
 }
 
-#[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum Difficulty {
     Passive,
     Lenient,

@@ -1,74 +1,146 @@
 use crate::gamedata::{self, Category, Run};
 use leptos::{
-    component, create_signal, leptos_dom::tracing, view, IntoAttribute, IntoView, SignalGet,
-    SignalUpdate,
+    component, create_signal, event_target_value,
+    html::{Option_, Tr},
+    leptos_dom::tracing,
+    view, with, HtmlElement, IntoAttribute, IntoClass, IntoView, SignalGet, SignalSet, SignalWith,
 };
 
+// TODO:
+// 1. Add options to filter by:
+// - run obsoletion
+// - difficulty
+// - date
+// - patch
+// 2. Block out component if run data is missing
 #[component]
 pub fn Leaderboard() -> impl IntoView {
     let runs = {
         let mut runs = gamedata::load_runs();
         runs.sort_by(|a, b| {
-            a.igt_ms
-                .cmp(&b.igt_ms)
-                .then_with(|| b.difficulty.cmp(&a.difficulty))
-                .then_with(|| b.patch_release_date.cmp(&a.patch_release_date))
-                .then_with(|| a.submission_date.cmp(&b.submission_date))
-                .then_with(|| a.runner.cmp(&b.runner))
+            a.level
+                .cmp(&b.level)
+                .then(a.igt_ms.cmp(&b.igt_ms))
+                .then(b.difficulty.cmp(&a.difficulty))
+                .then(b.patch_release_date.cmp(&a.patch_release_date))
+                .then(a.submission_date.cmp(&b.submission_date))
+                .then(a.runner.cmp(&b.runner))
+                .then_with(|| panic!("Duplicate run or mathematically impossible tie"))
         });
-        runs.dedup_by(|a, b| a.runner == b.runner);
         runs
-        // [100%] 1. Runs should be ordered by length, favoring harder then up-to-date then older runs in a tie
-        // [100%] 2. Runs should contain their category? and P% runs auto-count as any% ones
-        // [100%] 2. Runs should contain their related level
-        // [020%] 3. Non-PB runs by the same runner should be filtered out to seperate class
     };
-    let (sr, sw) = create_signal(Category::P);
-    let change_category = move |_| {
-        sw.update(|c| {
-            *c = match *c {
-                Category::P => Category::Any,
-                Category::Any => Category::NoMo,
-                Category::NoMo => Category::P,
-            }
-        });
-    };
+    let (category_r, category_w) = create_signal(Category::Any);
+    let (level_r, level_w) = create_signal(
+        runs.first()
+            .map_or_else(|| todo!("run data presence handling"), |r| r.level.clone()),
+    );
+    // INFO: need to call `into_class` manually to silence `unused_import` warning
+    let _silencer = true.into_class();
     view! {
-        <div style="display: grid; justify-content: center;">
-            <button on:click=change_category>{move || sr.get().to_string()}</button>
-            <table class="grid">
+        <div class="leaderboard">
+            <div class="controls">
+                <div>
+                    <div>
+                        <select on:change=move |ev| {
+                            level_w.set(event_target_value(&ev));
+                        }>
+
+                            {
+                                let runs = runs.clone();
+                                move || levels_into_options(&runs, &level_r.get())
+                            }
+
+                        </select>
+                    </div>
+                    <div>
+                        <button
+                            on:click=move |_| category_w.set(Category::Any)
+                            class:selected=move || category_r.with(|c| *c == Category::Any)
+                        >
+                            "Any%"
+                        </button>
+                        <button
+                            on:click=move |_| category_w.set(Category::P)
+                            class:selected=move || category_r.with(|c| *c == Category::P)
+                        >
+                            "P Rank"
+                        </button>
+                        <button
+                            on:click=move |_| category_w.set(Category::NoMo)
+                            class:selected=move || category_r.with(|c| *c == Category::NoMo)
+                        >
+                            "NoMo"
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <table>
                 <thead>
                     <tr>
                         <th>"#"</th>
-                        <th>"Runner"</th>
+                        <th>"Player"</th>
                         <th>"IGT"</th>
                         <th>"Date"</th>
                         <th>"Difficulty"</th>
                         <th>"Patch"</th>
                     </tr>
                 </thead>
-                <tbody>{move || { runs_into_view(&runs, &sr.get()) }}</tbody>
+                <tbody>
+
+                    {move || runs_into_trs(
+                        &runs
+                            .iter()
+                            .filter(|r| {
+                                with!(
+                                    | level_r, category_r | * level_r == r.level && (r.category == *
+                                    category_r || * category_r == Category::Any && r.category ==
+                                    Category::P)
+                                )
+                            })
+                            .cloned()
+                            .collect::<Box<_>>(),
+                    )}
+
+                </tbody>
             </table>
         </div>
     }
 }
 
-#[expect(
-    clippy::pattern_type_mismatch,
-    reason = "same-name variable deconstruction to references is not a type mismatch"
-)]
-fn runs_into_view(runs: &[Run], category: &Category) -> impl IntoView {
-    runs.iter()
-        .filter(|r| {
-            r.category == *category || *category == Category::Any && r.category == Category::P
+// FIXME: inelegant, cloning, verbose, badly named, needs argument decopulation
+fn levels_into_options(runs: &[Run], level: &str) -> Vec<HtmlElement<Option_>> {
+    let mut a = runs.iter().map(|r| &r.level).cloned().collect::<Vec<_>>();
+    a.sort();
+    a.dedup();
+    a.into_iter()
+        .map(|l| {
+            let lvl = l.clone();
+            let level = String::from(level);
+            // NOTE:
+            // level.with(|level| *level ...)
+            // differs from
+            // level.with(|&level| level ...)
+            // for `move` closures
+            view! {
+                <option value=l.clone() selected=move || level == lvl>
+                    {l}
+                </option>
+            }
         })
+        .collect()
+}
+
+// #[expect(
+//     clippy::pattern_type_mismatch,
+//     reason = "same-name variable deconstruction to references is not a type mismatch"
+// )]
+fn runs_into_trs(runs: &[Run]) -> Vec<HtmlElement<Tr>> {
+    runs.iter()
         .enumerate()
         .map(|(idx, run)| {
             let Run {
                 runner,
-                // level: _,
                 igt_ms,
-                // category: _,
                 submission_date,
                 difficulty,
                 patch_release_date,
@@ -82,6 +154,8 @@ fn runs_into_view(runs: &[Run], category: &Category) -> impl IntoView {
                 igt_ms % 1000
             );
             let submission_date = {
+                // TODO: fix submission date display
+
                 // use core::time::{Duration, SystemTime};
                 // let seconds = (SystemTime::now()
                 //     .duration_since(SystemTime::UNIX_EPOCH)
@@ -117,8 +191,8 @@ fn runs_into_view(runs: &[Run], category: &Category) -> impl IntoView {
             let difficulty = difficulty.to_string();
             let patch_release_date = patch_release_date.to_string();
             // INFO: need to call `into_attribute` manually to silence `unused_import` warning
-            let proof = proof.to_string().into_attribute();
-            // let proof = proof.to_string();
+            let _silencer = true.into_attribute();
+            let proof = proof.to_string();
             let runner_link = format!("https://www.speedrun.com/users/{runner}");
             view! {
                 <tr>
@@ -135,5 +209,5 @@ fn runs_into_view(runs: &[Run], category: &Category) -> impl IntoView {
                 </tr>
             }
         })
-        .collect::<Vec<_>>()
+        .collect()
 }
