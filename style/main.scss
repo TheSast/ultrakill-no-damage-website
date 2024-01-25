@@ -5,74 +5,75 @@ body {
 .title {
   font-family: system-ui;
   text-align: center;
-  color: #ffffff;
+  color: #fff;
 }
 
-div {
-  justify-content: center;
-}
-
-/* .grid table */
-table {
+.leaderboard {
+  width: 724px; // 724 at fullscreen, dynamic at lower? 800 - 925 seen
+  font-family: "Inter";
+  color: #fff;
+  background-color: #342120;
   border-radius: 8px;
+  box-shadow:
+    0px -0.75px #564342,
+    0 6px 14px -5px #000;
+  // 0 10px 15px -3px var(--tw-shadow-color),0 4px 6px -4px var(--tw-shadow-color),inset 0 1px 0 0 hsla(0,0%,100%,.1)
+}
+
+.leaderboard table {
+  width: inherit;
+  font-size: 13px;
+  border-radius: 0px 0px 8px 8px;
   overflow: hidden;
   border-collapse: collapse;
-  width: 800px;
-  padding-left: 90px;
-  font-size: 13px;
 }
 
-.grid th {
-  font-family: "Inter";
-  font-weight: 700;
+.leaderboard thead tr {
+  height: 48px;
+  font-weight: bold;
 }
 
-.grid tr {
-  font-family: "Inter";
-  font-weight: unset;
-  color: #ffffff;
-  transition: background-color 0.3s ease;
+.leaderboard thead tr:first-child {
+  background-color: #242424;
+}
+
+.leaderboard tbody tr {
   height: 35px;
 }
 
-// thead??
-.grid thead tr:first-child {
-  height: 3rem; // ~49px
-  filter: brightness(110%);
-}
-
-/* tbody?? */
-.grid tbody tr:hover {
+.leaderboard tbody tr:hover {
   filter: brightness(140%);
 }
 
-.grid tr:nth-child(even) {
+.leaderboard tbody tr:nth-child(even) {
   background-color: #1d1d1d;
 }
 
-.grid tr:nth-child(odd) {
+.leaderboard tbody tr:nth-child(odd) {
   background-color: #212121;
 }
 
-.grid td {
-  margin: 0;
+.leaderboard td {
   text-align: center;
 }
 
-.grid td a {
+.leaderboard td a {
   text-decoration: none;
   color: inherit;
-  transition: font-weight 0.001s ease;
 }
 
-.grid td:first-child {
-  font-weight: 400;
-  padding-left: 3px;
-  padding-right: 3px;
+.leaderboard td:nth-child(1) {
+  padding-left: 4px;
+  padding-right: 4px;
+  font-weight: normal;
 }
 
-.grid td:nth-child(2),
-.grid th:nth-child(2) {
+.leaderboard td:nth-child(2) {
+  font-weight: bold;
+}
+
+.leaderboard td:nth-child(2),
+.leaderboard th:nth-child(2) {
   text-align: left;
 }
 
