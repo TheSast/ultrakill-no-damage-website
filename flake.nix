@@ -27,16 +27,20 @@
           {
             packages = with pkgs;
               [
+                # rust
                 taplo-lsp
+                cargo-edit
                 (rust-bin.fromRustupToolchainFile ./rust-toolchain.toml) # rust-src, rust-analyzer
               ]
               ++ [
+                # project
                 cargo-generate # runtime dep of cargo-leptos
                 cargo-leptos
                 leptosfmt
                 sass
               ]
               ++ [
+                # lsp
                 nodePackages.vscode-css-languageserver-bin
                 prettierd
               ];
