@@ -20,7 +20,7 @@ impl Display for Category {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord)]
 pub enum Difficulty {
-    Passive,
+    Harmless,
     Lenient,
     Standard,
     Violent,
