@@ -1,0 +1,149 @@
+[[runs]]
+runner = "D_Savez"
+track = "6-2"                          # 0-1 | 0-2 | 0-3 | 0-4 | 0-5 | 1-1 | 1-2 | 1-3 | 1-4 | 1-5 | 2-1 | 2-2 | 2-3 | 2-4 | 3-1 | 3-2 | 4-1 | 4-2 | 4-3 | 4-4 | 4-5 | 5-1 | 5-2 | 5-3 | 5-4 | 6-1 | 6-2 | P-1 | P-2 | Mouth Of Hell | Limbo | Lust | Gluttony | Greed | Wrath | Heresy | Violence Infinite Hyperdeath | Imperfect Hatred 
+igt_ms = 55_140                        # in-game times in milliseconds, split groups of 3 digits using _
+category = "P"                         # P | Any | NoMo
+submission_date = 2022-08-22           # a date, time will be ignored
+difficulty = "Violent"                 # Harmless | Lenient | Standard | Violent
+patch_release_date = "11a"
+proof = "https://youtu.be/jpxxrGMK1Hs"
+
+[[runs]]
+runner = "TheSast"
+track = "6-2"
+igt_ms = 28_929
+category = "P"
+submission_date = 2022-09-01
+difficulty = "Violent"
+patch_release_date = "2022-08-16"
+proof = "https://www.speedrun.com/ultrakill/runs/y4x8wx3z"
+
+[[runs]]
+runner = "fightlikehell"
+track = "6-2"
+igt_ms = 62_339
+category = "P"
+submission_date = 2022-08-16
+difficulty = "Violent"
+patch_release_date = "2022-08-16"
+proof = "https://youtu.be/uL6nIosxSTQ"
+
+[[runs]]
+runner = "HerbMessiah"
+track = "Mouth Of Hell"
+igt_ms = 298_566
+category = "P"
+submission_date = 2020-12-09
+difficulty = "Violent"
+patch_release_date = "2020-09-03"
+proof = "https://youtu.be/o0imerpD5DY"
+
+[[runs.levels]]
+runner = "HerbMessiah"
+track = "0-1"
+igt_ms = 55_449
+category = "P"
+submission_date = 2020-12-09
+difficulty = "Violent"
+patch_release_date = "2020-09-03"
+proof = "https://youtu.be/o0imerpD5DY"
+
+[[runs.levels]]
+runner = "HerbMessiah"
+track = "0-2"
+igt_ms = 42_923
+category = "P"
+submission_date = 2020-12-09
+difficulty = "Violent"
+patch_release_date = "2020-09-03"
+proof = "https://youtu.be/o0imerpD5DY?t=66"
+
+[[runs.levels]]
+runner = "HerbMessiah"
+track = "0-3"
+igt_ms = 90_402
+category = "P"
+submission_date = 2020-12-09
+difficulty = "Violent"
+patch_release_date = "2020-09-03"
+proof = "https://youtu.be/o0imerpD5DY?t=120"
+
+[[runs.levels]]
+runner = "HerbMessiah"
+track = "0-4"
+igt_ms = 56_481
+category = "P"
+submission_date = 2020-12-09
+difficulty = "Violent"
+patch_release_date = "2020-09-03"
+proof = "https://youtu.be/o0imerpD5DY?t=222"
+
+[[runs.levels]]
+runner = "HerbMessiah"
+track = "0-5"
+igt_ms = 53_311
+category = "P"
+submission_date = 2020-12-09
+difficulty = "Violent"
+patch_release_date = "2020-09-03"
+proof = "https://youtu.be/o0imerpD5DY?t=288"
+
+[[runs]]
+runner = "fightlikehell"
+track = "Mouth Of Hell"
+igt_ms = 188_529
+category = "P"
+submission_date = 2022-12-08
+difficulty = "Violent"
+patch_release_date = "2022-08-16"
+proof = "https://youtu.be/o0imerpD5DY"
+
+[[runs.levels]]
+runner = "fightlikehell"
+track = "0-1"
+igt_ms = 36_414
+category = "P"
+submission_date = 2022-12-08
+difficulty = "Violent"
+patch_release_date = "2022-08-16"
+proof = "https://youtu.be/o0imerpD5DY"
+
+[[runs.levels]]
+runner = "fightlikehell"
+track = "0-2"
+igt_ms = 33_967
+category = "P"
+submission_date = 2022-12-08
+difficulty = "Violent"
+patch_release_date = "2022-08-16"
+proof = "https://youtu.be/YMqZWc5Elyo?t=51"
+
+[[runs.levels]]
+runner = "fightlikehell"
+track = "0-3"
+igt_ms = 55_609
+category = "P"
+submission_date = 2022-12-08
+difficulty = "Violent"
+patch_release_date = "2022-08-16"
+proof = "https://youtu.be/YMqZWc5Elyo?t=97"
+
+[[runs.levels]]
+runner = "fightlikehell"
+track = "0-4"
+igt_ms = 31_660
+category = "P"
+submission_date = 2022-12-08
+difficulty = "Violent"
+patch_release_date = "2022-08-16"
+proof = "https://youtu.be/YMqZWc5Elyo?t=163"
+
+[[runs.levels]]
+runner = "fightlikehell"
+track = "0-5"
+igt_ms = 30_879
+category = "P"
+submission_date = 2022-12-08
+difficulty = "Violent"
+patch_release_date = "2022-08-16"
+proof = "https://youtu.be/YMqZWc5Elyo?t=202"

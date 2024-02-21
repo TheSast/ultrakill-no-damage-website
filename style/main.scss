@@ -24,6 +24,18 @@ body {
   // 0 10px 15px -3px var(--tw-shadow-color),0 4px 6px -4px var(--tw-shadow-color),inset 0 1px 0 0 hsla(0,0%,100%,.1)
 }
 
+.leaderboard:has(.error) {
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.leaderboard .error {
+  font-family: "Inter";
+  font-size: 23px;
+}
+
 .leaderboard table {
   width: inherit;
   font-size: 13px;
