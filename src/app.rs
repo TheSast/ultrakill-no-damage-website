@@ -1,9 +1,8 @@
-#![expect(
+#![allow(
     clippy::empty_structs_with_brackets,
     clippy::infinite_loop,
-    clippy::module_name_repetitions,
-    reason = "Leptos components do not appropriately allow or expect lints"
-)]
+    clippy::module_name_repetitions
+)] // reason = "Leptos components do not appropriately allow or expect lints"
 use crate::components::Leaderboard;
 use leptos::{component, tracing, view, IntoView};
 use leptos_meta::{provide_meta_context, Stylesheet, Title};

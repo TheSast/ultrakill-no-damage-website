@@ -130,10 +130,7 @@ fn levels_into_options(runs: &[Run], level: &str) -> Vec<HtmlElement<Option_>> {
         .collect()
 }
 
-// #[expect(
-//     clippy::pattern_type_mismatch,
-//     reason = "same-name variable deconstruction to references is not a type mismatch"
-// )]
+// #[allow(clippy::pattern_type_mismatch)] // reason = "same-name variable deconstruction to references is not a type mismatch"
 fn runs_into_trs(runs: &[Run]) -> Vec<HtmlElement<Tr>> {
     runs.iter()
         .enumerate()

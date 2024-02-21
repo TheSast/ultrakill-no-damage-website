@@ -1,8 +1,5 @@
-#![feature(lint_reasons, never_type)]
-#![warn(rustdoc::all)]
-
 #[cfg(feature = "ssr")]
-#[expect(clippy::absolute_paths, reason = "Conditional compilation")]
+#[allow(clippy::absolute_paths)] // reason = "Conditional compilation"
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     use actix_files::Files;
@@ -10,11 +7,7 @@ async fn main() -> std::io::Result<()> {
     use leptos::{get_configuration, logging::log};
     use leptos_actix::{generate_route_list, LeptosRoutes};
     use uknd::app::App;
-
-    #[expect(
-        clippy::panic,
-        reason = "Server should crash when failing to configure"
-    )]
+    #[allow(clippy::panic)] // reason = "Server should crash when failing to configure"
     let conf = get_configuration(None)
         .await
         .unwrap_or_else(|err| panic!("Failed to configure server: {err}"));
@@ -45,7 +38,7 @@ async fn main() -> std::io::Result<()> {
 }
 
 #[cfg(feature = "ssr")]
-#[expect(clippy::absolute_paths, reason = "Conditional compilation")]
+#[allow(clippy::absolute_paths)] // reason = "Conditional compilation"
 #[actix_web::get("favicon.ico")]
 async fn favicon(
     leptos_options: actix_web::web::Data<leptos::LeptosOptions>,

@@ -109,11 +109,8 @@ unused_qualifications = "warn"
 unused_results = "warn"
 
 [lints.clippy]
-allow_attributes = "forbid"
-allow_attributes_without_reason = "deny"   # applies to `expect`
 infinite_loop = "deny"                     # should be a native compilation error, cannot `forbid` due to leptos component macro
 mod_module_files = "deny"
-pub_with_shorthand = "deny"
 tests_outside_test_module = "deny"
 absolute_paths = "warn"
 as_conversions = "warn"

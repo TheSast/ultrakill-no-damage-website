@@ -1,6 +1,3 @@
-#![feature(lint_reasons, never_type)]
-#![warn(rustdoc::all)]
-
 pub mod app;
 pub mod components;
 pub mod gamedata;
