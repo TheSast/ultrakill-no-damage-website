@@ -4,36 +4,51 @@
     clippy::module_name_repetitions
 )] // reason = "Leptos components do not appropriately allow or expect lints"
 use crate::components::Leaderboard;
-use leptos::{component, tracing, view, IntoView};
+use leptos::{component, view, IntoView};
 use leptos_meta::{provide_meta_context, Stylesheet, Title};
 use leptos_router::{Route, Router, Routes};
+
+#[cfg(debug_assertions)]
+use leptos::tracing;
 
 #[component]
 pub fn App() -> impl IntoView {
     // Provides context that manages stylesheets, titles, meta tags, etc.
     provide_meta_context();
 
-    view! {
-        <Stylesheet id="leptos" href="/pkg/uknd.css"/>
+    if cfg!(feature = "ghpages") {
+        view! {
+            <Title text="UKND LB"/>
+            <link rel="preconnect" href="https://fonts.googleapis.com"/>
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+            <link
+                href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap"
+                rel="stylesheet"
+            />
+            <HomePage/>
+        }
+    } else {
+        view! {
+            <Stylesheet id="leptos" href="/pkg/uknd.css"/>
 
-        // sets the document title
-        <Title text="UKND LB"/>
-        <link rel="preconnect" href="https://fonts.googleapis.com"/>
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap"
-            rel="stylesheet"
-        />
-        // content for this welcome page
-        <Router>
-            <main>
-                <Routes>
-                    <Route path="" view=HomePage/>
-                    <Route path="/lb" view=Leaderboard/>
-                    <Route path="/*any" view=NotFound/>
-                </Routes>
-            </main>
-        </Router>
+            <Title text="UKND LB"/>
+            <link rel="preconnect" href="https://fonts.googleapis.com"/>
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+            <link
+                href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap"
+                rel="stylesheet"
+            />
+
+            <Router>
+                <main>
+                    <Routes>
+                        <Route path="" view=HomePage/>
+                        <Route path="/lb" view=Leaderboard/>
+                        <Route path="/*any" view=NotFound/>
+                    </Routes>
+                </main>
+            </Router>
+        }
     }
 }
 

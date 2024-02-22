@@ -2,9 +2,11 @@ use crate::gamedata::{self, Category, Run, Track};
 use leptos::{
     component, create_signal, event_target_value,
     html::{Option_, Tr},
-    leptos_dom::tracing,
     view, with, HtmlElement, IntoAttribute, IntoClass, IntoView, SignalGet, SignalSet, SignalWith,
 };
+
+#[cfg(debug_assertions)]
+use leptos::leptos_dom::tracing;
 
 // TODO:
 // 1. Add options to filter by:
