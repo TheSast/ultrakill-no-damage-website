@@ -60,14 +60,7 @@ pub fn main() {
 
 #[cfg(all(not(feature = "ssr"), feature = "csr"))]
 pub fn main() {
-    // a client-side main function is required for using `trunk serve`
-    // prefer using `cargo leptos serve` instead
-    // to run: `trunk serve --open --features csr`
-    use leptos::*;
-    use uknd::app::*;
-    use wasm_bindgen::prelude::wasm_bindgen;
-
+    use uknd::app::App;
     console_error_panic_hook::set_once();
-
     leptos::mount_to_body(App);
 }
